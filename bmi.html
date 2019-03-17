@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Calculate</title>
+
+    <script>
+        function CALCILATE() {
+            var myhttp = new XMLHttpRequest();
+            var x = document.getElementById("hight").value;
+            var y = document.getElementById("weight").value;
+            var data = '{"ht":"' + x + '","wt":"' + y + '"}';
+            console.log(data);
+            myhttp.open("POST", "http://mrz.freetzi.com/calculate-bmi.php", false);
+            myhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            myhttp.send("input=" + data);
+
+
+            if (myhttp.readyState == 4 && myhttp.status == 200) {
+
+                var result = myhttp.responseText;
+                var resultID = JSON.parse(result);
+                document.getElementById("show").innerHTML = "Your BMI is " + resultID.bmi + " " + resultID.message;
+                console.log(result);
+
+            }
+        }
+    </script>
+
+</head>
+ <h1 > BMI Calculator</h1>
+ Height:<input type="number" id="hight" size="10"> <br>
+ weight:<input type="number" id="weight" size="10"><br>
+    <button onclick="CALCILATE();">SUBMIT</button>
+    <div id="show"></div>
+
+
+
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
